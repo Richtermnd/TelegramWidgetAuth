@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <a href="/user" margin-right="auto" margin-left="0">Моя страница</a>
+        </div>
+        <div>
+            <a href="/logout" margin-right="0" margin-left="auto">Выйти</a>
+        </div>
+    </div>
+    <div>
+        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="cringexdbot"
+            data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+        <script type="text/javascript">
+
+            function onTelegramAuth(user) {
+                console.log(user)
+                // setCookie("X-telegram-data", JSON.stringify(user), 1)
+                fetch("/api/login", {
+                    method: "POST",
+                    cache: "no-cache",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    redirect: "follow",
+                    body: JSON.stringify(user)
+                }).then(response => {
+                    // redirect
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    }
+                })
+            }
+        </script>
+    </div>
+</body>
+
+</html>

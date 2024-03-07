@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User page</title>
+</head>
+
+<body>
+    <img id="photo_url" width="300" height="300"><br>
+    <table>
+        <tr>
+            <td>Telegram ID</td>
+            <td id="tg_id"></td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td id="first_name"></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td id="last_name"></td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td id="username"></td>
+        </tr>
+        <tr>
+            <td>Last Login</td>
+            <td id="last_login"></td>
+        </tr>
+        <tr>
+            <td>Registered</td>
+            <td id="registered"></td>
+        </tr>
+    </table>
+    <script>
+        const upload = () => {
+            fetch("/api/user", {
+            method: "GET",
+            cache: "no-cache"
+        }).
+            then(response => response.json()).
+            then(json => {
+                for (const [key, value] of Object.entries(json)) {
+                    console.log(key, value)
+                    let el = document.getElementById(key)
+                    if (key == "photo_url") {
+                        el.src = value
+                    }
+                    el.innerHTML = value
+                }
+            })
+        }
+        upload()
+    </script>
+
+</html>

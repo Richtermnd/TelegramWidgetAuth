@@ -1,0 +1,8 @@
+EnvType: "local|dev|prod"
+Token: ""
+Port: 8000
+LoginTTL: 24h
+storage:
+  url: "./storage/db.db"
+  username: ""
+  password: ""
